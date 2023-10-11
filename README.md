@@ -3,9 +3,8 @@
 ## Dependencies
 ```
 numpy
-pandas
 matplotlib
-seaborn
+pytorch
 pytorch-lightning
 sklearn
 ```
