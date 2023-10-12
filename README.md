@@ -4,7 +4,8 @@
 ```
 numpy
 matplotlib
-pytorch
+torch
+torchmetrics
 pytorch-lightning
 sklearn
 ```
