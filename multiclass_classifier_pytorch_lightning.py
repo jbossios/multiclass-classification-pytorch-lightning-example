@@ -4,7 +4,7 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 from numpy.random import uniform, choice, normal
-from torch import nn, optim, Tensor, no_grad, manual_seed, argmax
+from torch import nn, optim, Tensor, manual_seed, argmax
 from torch.utils.data import TensorDataset, DataLoader
 from torchmetrics.classification import Accuracy, MulticlassConfusionMatrix
 from pytorch_lightning.utilities.model_summary import ModelSummary
@@ -142,7 +142,6 @@ class Model(pl.LightningModule):
         self.log('loss', loss)
         # Track accuracy
         y_target = argmax(y, dim=1)
-        probabilities = nn.functional.softmax(logits, dim=1)
         y_pred = argmax(logits, dim=1)
         acc = self.accuracy(y_pred, y_target)
         self.log('accuracy', acc)
@@ -155,7 +154,6 @@ class Model(pl.LightningModule):
         self.log('val_loss', loss)
         # Track accuracy
         y_target = argmax(y, dim=1)
-        probabilities = nn.functional.softmax(logits, dim=1)
         y_pred = argmax(logits, dim=1)
         acc = self.accuracy(y_pred, y_target)
         self.log('val_accuracy', acc)
@@ -169,7 +167,6 @@ class Model(pl.LightningModule):
         self.log('test_loss', loss)
         # Track accuracy
         y_target = argmax(y, dim=1)
-        probabilities = nn.functional.softmax(logits, dim=1)  # label probabilities
         y_pred = argmax(logits, dim=1)  # find label with highest probability
         acc = self.accuracy(y_pred, y_target)
         self.log('test_accuracy', acc)
@@ -389,9 +386,9 @@ def main(
         mode = 'min',
     )
     trainer = pl.Trainer(
-        max_epochs=300,
-        enable_model_summary=False,  # summary printed already
-        callbacks=[
+        max_epochs = 300,
+        enable_model_summary = False,  # summary printed already
+        callbacks = [
             tracker,
             early_stoppping_callback,
             model_checkpoint_callback
