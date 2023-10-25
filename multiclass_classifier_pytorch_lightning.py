@@ -372,7 +372,7 @@ def main(
 
     # Create a PyTorch Lightning trainer and add callbacks
     tracker = MetricTrackerCallback()
-    early_stoppping_callback = pl.callbacks.early_stopping.EarlyStopping(
+    early_stopping_callback = pl.callbacks.early_stopping.EarlyStopping(
         monitor = 'val_loss',
         patience = 10,
         min_delta = 0.005,
@@ -390,7 +390,7 @@ def main(
         enable_model_summary = False,  # summary printed already
         callbacks = [
             tracker,
-            early_stoppping_callback,
+            early_stopping_callback,
             model_checkpoint_callback
         ]
     )
